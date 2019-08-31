@@ -11,7 +11,7 @@ Actually I was wondering which one is the best projection because every projecti
 
 The major purpose of this project is a beautiful interactive world for further interactive mobile applications.
 
-Especially, Plate-Caree and Pattern-Cylindrical projection were important comparisons.
+Especially, Plate-Caree and Patterson-Cylindrical projection were important comparisons.
 
 
 (Editting...)
