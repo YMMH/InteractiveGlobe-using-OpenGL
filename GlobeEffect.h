@@ -21,5 +21,6 @@ public:
 
 	void CreateRoi(float* lat, float* lng, const int size);
 	void BindRoiBuffer(GLuint& VAO, GLuint& VBO, GLuint& EBO);
-
+	void GetCentorVector(float* lat, float* lng, const int size, float& x, float& y, float& z);
+	void PushCentorPos(float x, float y, float z);
 };

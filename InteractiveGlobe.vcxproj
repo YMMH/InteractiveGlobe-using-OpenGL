@@ -149,10 +149,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="gason.cpp" />
+    <ClCompile Include="geojson.cc" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="Globe.cpp" />
     <ClCompile Include="GlobeEffect.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="parser.cc" />
     <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,8 +165,11 @@
     <None Include="roi.vs" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="gason.h" />
+    <ClInclude Include="geojson.hh" />
     <ClInclude Include="Globe.h" />
     <ClInclude Include="GlobeEffect.h" />
+    <ClInclude Include="parser.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Type.h" />

@@ -11,6 +11,7 @@
 #include "Globe.h"
 #include "GlobeEffect.h"
 #include "Type.h"
+#include "parser.h"
 
 #include <iostream>
 #include <fstream>
@@ -94,15 +95,21 @@ int main()
 
 	// make surface effect //
 
-	//const int roiSize = 9;
-	//float lat[roiSize] = { 37.0f,37.5f,38.0f,40.0f,40.0f,39.9f,39.5f,39.0f,38.5f};
-	//float lng[roiSize] = { 125.0f,125.0f,125.0f,128.0f,129.0f,131.0f,131.1f,131.2f,131.3f};
-	const int roiSize = 4;
-	float lat[roiSize] = { 38.0f, 38.0f, 34.0f, 34.0f};
-	float lng[roiSize] = { 126.0f, 130.0f, 130.0f, 126.0f};
+	//int roiSize = 4;
+	//float lat[roiSize] = { 38.0f, 38.0f, 34.0f, 34.0f};
+	//float lng[roiSize] = { 126.0f, 130.0f, 130.0f, 126.0f};
+	std::vector<float> lat;
+	std::vector<float> lng;
+	GeoJsonParser::GeoJson2LatLon("custom.geo.china.json", lat, lng);
+	int roiSize = lat.size();
 
-	GlobeEffect globeEffect(1.002f, DIMENSION);
-	globeEffect.CreateRoi(lat, lng, roiSize);
+	float cX = 0, cY = 0, cZ = 0;
+
+	GlobeEffect globeEffect(1.015f, DIMENSION);
+	globeEffect.GetCentorVector(&lat[0], &lng[0], lat.size(), cX, cY, cZ);
+	globeEffect.PushCentorPos(cX, cY, cZ);
+	globeEffect.CreateRoi(&lat[0], &lng[0], roiSize);
+	roiSize = globeEffect.vertices_.size();
 
 // make VAO and bind buffers //
 

@@ -78,3 +78,35 @@ void GlobeEffect::BindRoiBuffer(GLuint& VAO, GLuint& VBO, GLuint& EBO)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
+
+void GlobeEffect::GetCentorVector(float* lat, float* lng, const int size, float &x, float &y, float &z)
+{
+	
+	x = 0, y = 0, z = 0;
+	for (int i = 0; i < size; i++) {
+		float rt = lat[i] * PI / 180;
+		float rp = lng[i] * PI / 180;
+
+		x += cos(rt) * cos(rp);
+		y += cos(rt) * sin(rp);
+		z += sin(rt);
+	}
+
+	x = x/size *radius_*1.1;
+	y = y/size *radius_*1.1;
+	z = z/size *radius_*1.1;
+	
+}
+
+void GlobeEffect::PushCentorPos(float x, float y, float z)
+{
+	if (vertices_.size() != 0) {
+		std::cout << "ERROR::cannot push centor. vector already has data" << std::endl;
+		return;
+	}
+
+	vertices_.push_back(x);
+	vertices_.push_back(y);
+	vertices_.push_back(z);
+	indiceCnt_++;
+}
