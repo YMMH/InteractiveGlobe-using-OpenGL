@@ -36,9 +36,6 @@
     <ClCompile Include="geojson.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="parser.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="globe.fs">
@@ -76,8 +73,10 @@
     <ClInclude Include="geojson.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="parser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CountryCodeList.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

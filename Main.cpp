@@ -9,9 +9,9 @@
 
 #include "Shader.h"
 #include "Globe.h"
+#include "geojson.hh"
 #include "GlobeEffect.h"
 #include "Type.h"
-#include "parser.h"
 
 #include <iostream>
 #include <fstream>
@@ -28,8 +28,8 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
 // settings
-const unsigned int SCR_WIDTH = 1200;
-const unsigned int SCR_HEIGHT = 800;
+const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_HEIGHT = 600;
 
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -100,16 +100,12 @@ int main()
 	//float lng[roiSize] = { 126.0f, 130.0f, 130.0f, 126.0f};
 	std::vector<float> lat;
 	std::vector<float> lng;
-	GeoJsonParser::GeoJson2LatLon("custom.geo.china.json", lat, lng);
-	int roiSize = lat.size();
 
 	float cX = 0, cY = 0, cZ = 0;
 
-	GlobeEffect globeEffect(1.015f, DIMENSION);
-	globeEffect.GetCentorVector(&lat[0], &lng[0], lat.size(), cX, cY, cZ);
-	globeEffect.PushCentorPos(cX, cY, cZ);
-	globeEffect.CreateRoi(&lat[0], &lng[0], roiSize);
-	roiSize = globeEffect.vertices_.size();
+	GlobeEffect globeEffect(1.005f, DIMENSION);
+	globeEffect.ConvertGeoJson("border_50m/", COUNTRYALL);
+	globeEffect.MakeAreaObjectList();
 
 // make VAO and bind buffers //
 
@@ -119,7 +115,7 @@ int main()
 
 	// surface effect VAO
 	unsigned int VAO2, VBO2, EBO2;
-	globeEffect.BindRoiBuffer(VAO2, VBO2, EBO2);
+	globeEffect.BindAreaBuffer(VAO2, VBO2, EBO2, 10000);
 
 // -- //
 
@@ -141,8 +137,8 @@ int main()
 	// load image, create texture and generate mipmaps
 	int width, height, nrChannels;
 	stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-	unsigned char* data = stbi_load("globee.jpg", &width, &height, &nrChannels, 0);
-	//unsigned char* data = stbi_load("world_map_nasa_3x5400x2700.jpg", &width, &height, &nrChannels, 0);
+	//unsigned char* data = stbi_load("globee2.png", &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load("world_map_nasa_3x5400x2700.jpg", &width, &height, &nrChannels, 0);
 
 	if (data)
 	{
@@ -168,7 +164,8 @@ int main()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// load image, create texture and generate mipmaps
 
-	data = stbi_load("world_map_nasa_3x5400x2700.jpg", &width, &height, &nrChannels, 0);
+	//data = stbi_load("world_map_nasa_3x5400x2700.jpg", &width, &height, &nrChannels, 0);
+	data = stbi_load("globee3.png", &width, &height, &nrChannels, 0);
 	if (data)
 	{
 		// note that the awesomeface.png has transparency and thus an alpha channel, so make sure to tell OpenGL the data type is of GL_RGBA
@@ -258,10 +255,15 @@ int main()
 		roiShader.setMat4("projection", projection); 
 		roiShader.setMat4("view", view);
 		roiShader.setMat4("model", model);
+
 #if 1
-		glBindVertexArray(VAO2);
-		//glDrawElements(GL_TRIANGLES, globeEffect.indiceCnt_*3, GL_UNSIGNED_INT, (void*)0);
-		glDrawElements(GL_TRIANGLES, (roiSize-2)*3, GL_UNSIGNED_INT, (void*)0);
+		int listSize = globeEffect.ObjectList_.size();
+		for (int i = 0; i < listSize; i++) {
+			VertexObject vertexObject = globeEffect.ObjectList_[i];
+			glLineWidth(3.3f);
+			globeEffect.BindAreaObject(VAO2, VBO2, EBO2, vertexObject);
+			glDrawElements(GL_LINE_LOOP, vertexObject.indiceCnt * 3, GL_UNSIGNED_INT, (void*)0);
+		}
 		glBindVertexArray(0);
 #endif
 
