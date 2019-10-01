@@ -19,7 +19,9 @@ void main()
     //FragColor = mix(texture(texture1, TexCoord), texture(texture2, TexCoord), 0.2);
 	//FragColor = texture(texture1, lnglat);
 
-	FragColor = mix(texture(texture1, TexCoord), texture(texture2, TexCoord), 0.0f);
+	//FragColor = vec4(1.0f,1.0f,1.0f,1.0f);
+	FragColor = mix(texture(texture1, TexCoord), texture(texture2, TexCoord), 1.0f);
+
 //	FragColor = texture(texture1, TexCoord);
 		
 //		float offset = 0.50f;

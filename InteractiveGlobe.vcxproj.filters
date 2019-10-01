@@ -36,6 +36,12 @@
     <ClCompile Include="geojson.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CountryName.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main_1001.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="globe.fs">
@@ -48,6 +54,18 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="roi.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="text.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="text.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="countrytext.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="countrytext.fs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
@@ -71,6 +89,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="geojson.hh">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="YText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -95,7 +95,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>./lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -149,21 +149,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CountryName.cpp" />
     <ClCompile Include="gason.cpp" />
     <ClCompile Include="geojson.cc" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="Globe.cpp" />
     <ClCompile Include="GlobeEffect.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="stb_image.cpp" />
+    <ClCompile Include="Main_1001.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="countrytext.fs" />
+    <None Include="countrytext.vs" />
     <None Include="globe.fs" />
     <None Include="globe.vs" />
     <None Include="roi.fs" />
     <None Include="roi.vs" />
+    <None Include="text.fs" />
+    <None Include="text.vs" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="YText.h" />
     <ClInclude Include="gason.h" />
     <ClInclude Include="geojson.hh" />
     <ClInclude Include="Globe.h" />

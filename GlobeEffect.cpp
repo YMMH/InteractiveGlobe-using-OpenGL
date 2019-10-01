@@ -50,12 +50,12 @@ void GlobeEffect::MakeVertex(std::vector<float>& vertices, std::vector<int>& ind
 	}
 }
 
-void GlobeEffect::LatLon2Xyz(float lat, float lon, float& x, float& y, float& z)
+void GlobeEffect::LatLon2Xyz(float lat, float lon, float& x, float& y, float& z, int dimension)
 {
 	float rt = lat * PI / 180;
 	float rp = lon * PI / 180;
 
-	if (dimension_ == DIMENSION3) {
+	if (dimension == DIMENSION3) {
 		x = cos(rt) * cos(rp);
 		y = cos(rt) * sin(rp);
 		z = sin(rt);
@@ -189,7 +189,7 @@ void GlobeEffect::MakeAreaObjectList()
 			float lon = polygon.m_coord[idx_crd].x;
 
 			float x, y, z;
-			LatLon2Xyz(lat, lon, x, y, z);
+			LatLon2Xyz(lat, lon, x, y, z, dimension_);
 			vertexObject.vertices.push_back(x);
 			vertexObject.vertices.push_back(y);
 			vertexObject.vertices.push_back(z);
